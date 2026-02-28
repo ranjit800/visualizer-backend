@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: visualizer-api
+    runtime: node
+    plan: free
+    rootDir: .
+    buildCommand: npm install
+    startCommand: node index.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: RENDER
+        value: "true"
+      - key: FRONTEND_URL
+        sync: false   # Set this to your Vercel URL in the Render dashboard
+    healthCheckPath: /health
