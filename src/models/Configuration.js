@@ -11,13 +11,11 @@ const configurationSchema = new mongoose.Schema({
     required: true
   },
   materials: {
-    type: Map,
-    of: String,
+    type: mongoose.Schema.Types.Mixed,
     default: {}
   },
   components: {
-    type: Map,
-    of: mongoose.Schema.Types.Mixed,
+    type: mongoose.Schema.Types.Mixed,
     default: {}
   },
   lightingPreset: {
