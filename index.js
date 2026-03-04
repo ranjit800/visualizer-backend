@@ -40,7 +40,54 @@ mongoose.connect(MONGODB_URI)
     process.exit(1);
   });
 
-// ── Routes ────────────────────────────────────────────────────────────────────
+// ── API Routes ───────────────────────────────────────────────────────────────
+
+// Root route - Friendly welcome and links
+app.get("/", (_req, res) => {
+  res.send(`
+    <html>
+      <head>
+        <title>Visualizer API Server</title>
+        <style>
+          body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; padding: 2rem; color: #333; max-width: 800px; margin: 0 auto; }
+          h1 { color: #000; }
+          code { background: #f4f4f4; padding: 0.2rem 0.4rem; rounded: 4px; }
+          a { color: #0066cc; text-decoration: none; }
+          a:hover { text-decoration: underline; }
+          .card { border: 1px solid #ddd; padding: 1.5rem; border-radius: 8px; margin-top: 1.5rem; }
+        </style>
+      </head>
+      <body>
+        <h1>🚀 Visualizer API Server</h1>
+        <p>This is the backend server for the Product Visualizer application.</p>
+        <div class="card">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="/health">Health Status (/health)</a></li>
+            <li><a href="/allapi">API Documentation (/allapi)</a></li>
+          </ul>
+        </div>
+      </body>
+    </html>
+  `);
+});
+
+// JSON API Summary
+app.get("/allapi", (_req, res) => {
+  res.json({
+    message: "Visualizer API Summary",
+    version: "1.0.0",
+    healthCheck: "/health",
+    endpoints: {
+      configurations: {
+        list: "GET /api/configurations",
+        create: "POST /api/configurations",
+        get: "GET /api/configurations/:id",
+        delete: "DELETE /api/configurations/:id"
+      }
+    }
+  });
+});
 
 app.get("/health", async (_req, res) => {
   try {
